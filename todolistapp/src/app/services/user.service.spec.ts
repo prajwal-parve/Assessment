@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { UserService } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/services/user.service';
 import sinon from 'sinon';
 import { PLATFORM_ID } from '@angular/core';
@@ -10,6 +11,7 @@ describe('UserService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         UserService,
         { provide: PLATFORM_ID, useValue: 'browser' } 
