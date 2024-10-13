@@ -1,0 +1,30 @@
+<ul class="list-group">
+    <li class="list-group-item m-0 position-relative border-0" *ngFor="let item of todolist">
+        <!-- Update Task -->
+        <a (click)="update(item)" class="float-start pointer">
+            <span class="me-3">
+                <i class="fa grid-icon" [ngClass]="item.status === false ? 'fa-check-square-o' : 'fa-undo'"></i>
+            </span>
+        </a>
+        
+        <!-- Task Name -->
+        <h6 class="m-0 text-start text-body">
+            <span *ngIf="!item.status">{{ item.task }}</span>
+            <del *ngIf="item.status" class="text-black-30">{{ item.task }}</del>
+        </h6>
+
+        <!-- Edit Task (visible only if not completed) -->
+        <a (click)="edit(item)" *ngIf="!item.status" class="pointer edit-icon">
+            <span class="ms-1 text-black50">
+                <i class="fa fa-pencil-square-o"></i>
+            </span>
+        </a>
+        
+        <!-- Delete Task -->
+        <a (click)="delete(item.id)" class="pointer delete-icon">
+            <span class="ms-1 text-black50">
+                <i class="fa fa-trash-o"></i>
+            </span>
+        </a>
+    </li>
+</ul>

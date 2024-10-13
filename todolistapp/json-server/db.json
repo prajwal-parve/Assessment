@@ -1,0 +1,55 @@
+{"user": [
+    {
+        "name": "Prajwal",
+        "email": "Prajwal@gmail.com",
+        "phone": "1234567890",
+        "password": "Pass@123",
+        "id": 1
+    },
+    {
+        "name": "Abc",
+        "email": "Abc@gmail.com",
+        "phone": "1234567890",
+        "password": "Pass@123",
+        "id": 2
+    }
+],
+"todo": [
+    {
+        "userId": 1,
+        "id": 1,
+        "task": "Sample task One",
+        "status": false
+    },
+    {
+        "userId": 1,
+        "id": 3,
+        "task": "Sample task Three",
+        "status": false
+    },
+    {
+        "userId": 1,
+        "id": 4,
+        "task": "Sample task four",
+        "status": false
+    },
+    {
+        "userId": 2,
+        "id": 6,
+        "task": "Sample task six",
+        "status": false
+    },
+    {
+        "userId": 2,
+        "id": 7,
+        "task": "Sample task Seven",
+        "status": true
+    },
+    {
+        "userId": 3,
+        "id": 8,
+        "task": "Sample task eight",
+        "status": true
+    }
+]
+}

@@ -1,0 +1,11 @@
+<div *ngIf="errorMessage" class="error-notification">
+    <div class="error-content">
+      <h2 class="error-title">Network Error</h2>
+      <p class="error-message">{{ errorMessage }}</p>
+      <div class="error-actions">
+        <button class="retry-button" (click)="retryRequest()">Retry</button>
+        <button class="close-button" (click)="closeErrorNotification()">Close</button>
+      </div>
+    </div>
+  </div>
+  

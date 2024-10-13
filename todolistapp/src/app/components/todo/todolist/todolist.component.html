@@ -1,0 +1,56 @@
+<div class="card border-0">
+    <ul class="list-group">
+        <li class="list-group-item m-0 position-relative border-0">
+            <ul class="top-links">
+                <li class="text-muted">{{ pendingTask?.length }} item left</li>
+                <li>
+                    <div class="nav nav-tabs border-0 px-5 mx-4" id="nav-tab" role="tablist">
+                        <button class="nav link text-body border-0 active" id="nav-all" 
+                                data-bs-toggle="tab" data-bs-target="#nav-all" aria-selected="true">
+                            All
+                        </button>
+                        <button class="nav link text-body border-0" id="nav-active" 
+                                data-bs-toggle="tab" data-bs-target="#nav-active" aria-selected="false">
+                            Active
+                        </button>
+                        <button class="nav link text-body border-0" id="nav-completed" 
+                                data-bs-toggle="tab" data-bs-target="#nav-completed" aria-selected="false">
+                            Completed
+                        </button>
+                    </div>
+                </li>
+                <li style="cursor: pointer;">Clear Completed</li>
+            </ul>
+        </li>
+
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" 
+                 aria-labelledby="nav-all-tab">
+                <app-todoitems [todolist]="todo" 
+                               (updateItem)="onUpdateTodoItem($event)"
+                               (deleteItem)="onDeleteTodoItem($event)" 
+                               (editItem)="onEditTodoItem($event)">
+                    <p class="text-danger text-center py-3 m-0" *ngIf="!todo?.length">No Task Found</p>
+                </app-todoitems>
+            </div>
+            <div class="tab-pane fade" id="nav-active" role="tabpanel" 
+                 aria-labelledby="nav-active-tab">
+                <app-todoitems [todolist]="pendingTask" 
+                               (updateItem)="onUpdateTodoItem($event)"
+                               (deleteItem)="onDeleteTodoItem($event)" 
+                               (editItem)="onEditTodoItem($event)">
+                    <p class="text-danger text-center py-3 m-0" *ngIf="!pendingTask?.length">No active Task Found</p>
+                </app-todoitems>
+            </div>
+            <div class="tab-pane fade" id="nav-completed" role="tabpanel" 
+                 aria-labelledby="nav-completed-tab">
+                <app-todoitems [todolist]="completeTask" 
+                               (updateItem)="onUpdateTodoItem($event)"
+                               (deleteItem)="onDeleteTodoItem($event)" 
+                               (editItem)="onEditTodoItem($event)">
+                    <p class="text-danger text-center py-3 m-0" *ngIf="!completeTask?.length">No Completed Task Found</p>
+                </app-todoitems>
+            </div>
+        </div>
+    </ul>
+</div>

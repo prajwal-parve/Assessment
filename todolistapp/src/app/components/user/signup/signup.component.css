@@ -1,0 +1,94 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('https://www.pbs.org/wnet/nature/files/2021/01/pexels-denis-linine-714258-1280x720.png') no-repeat center center;
+    background-size: cover;
+}
+
+
+.card {
+    background-color: #f8f9fa; 
+    border: 1px solid #ced4da; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    width: 100%; 
+    max-width: 400px; 
+}
+
+
+h2 {
+    color: #343a40; 
+    margin-bottom: 20px; 
+}
+
+
+.form-group {
+    margin-bottom: 1rem; 
+}
+
+.form-control {
+    height: 45px; 
+    border-radius: 5px; 
+    border: 1px solid #ced4da; 
+    transition: border-color 0.2s ease-in-out; 
+}
+
+
+.form-control:focus {
+    border-color: #007bff; 
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+
+.is-invalid {
+    border-color: #dc3545; 
+}
+
+
+.form-text.text-danger {
+    font-size: 0.875rem; 
+    margin-top: 0.25rem; 
+}
+
+
+.btn-primary {
+    background-color: #007bff; 
+    border: 1px solid #007bff; 
+    transition: background-color 0.3s, border-color 0.3s; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; 
+    border-color: #0056b3; 
+}
+
+
+.text-center {
+    margin-top: 20px; 
+}
+
+
+@media (max-width: 576px) {
+    .card {
+        margin: 10px; 
+        padding: 15px; 
+    }
+
+    h2 {
+        font-size: 1.5rem; 
+    }
+
+    .form-control {
+        font-size: 14px; 
+    }
+
+    .btn-primary {
+        padding: 8px 16px; 
+    }
+}

@@ -1,0 +1,65 @@
+<div class="login-container d-flex justify-content-center align-items-center vh-100">
+    <div class="card py-5 px-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center fw-bolder mb-4">User Login</h2>
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                    <!-- Email Input -->
+                    <div class="form-group mb-3">
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            [ngClass]="{
+                                'is-invalid': loginForm.controls.email.touched && 
+                                              (loginForm.controls.email.errors?.required || 
+                                               loginForm.controls.email.errors?.email)
+                            }" 
+                            formControlName="email"
+                            placeholder="Enter your email id"
+                        />
+                        <small class="form-text text-danger" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">
+                            Please enter your email
+                        </small>
+                        <small class="form-text text-danger" *ngIf="loginForm.controls.email.errors?.email">
+                            Please enter a valid email
+                        </small>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group mb-3">
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            [ngClass]="{
+                                'is-invalid': loginForm.controls.password.touched && 
+                                              (loginForm.controls.password.errors?.required || 
+                                               loginForm.controls.password.errors?.minlength)
+                            }" 
+                            formControlName="password"
+                            placeholder="Enter your password"
+                        />
+                        <small class="form-text text-danger" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">
+                            Please enter your password
+                        </small>
+                        <small class="form-text text-danger" *ngIf="loginForm.controls.password.errors?.minlength">
+                            Password must be at least 8 characters
+                        </small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary w-100" 
+                            [disabled]="!loginForm.valid">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    Don't have an Account? <a routerLink="/signup">Signup</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

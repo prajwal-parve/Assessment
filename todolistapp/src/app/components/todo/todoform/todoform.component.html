@@ -1,0 +1,22 @@
+<div class="todo-form">
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="task">Task</label>
+        <input
+          #task
+          type="text"
+          id="task"
+          [(ngModel)]="tform.task"
+          name="task"
+          required
+          placeholder="Enter your task"
+        />
+      </div>
+  
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Todo</button>
+        <button type="button" class="btn btn-secondary" (click)="edit()">Edit Todo</button>
+      </div>
+    </form>
+  </div>
+  
