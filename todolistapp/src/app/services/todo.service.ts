@@ -7,7 +7,7 @@ import { Todo } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/shared/
   providedIn: 'root'
 })
 export class TodoService {
-  private baseUrl = 'http://localhost:4200/';  // Ensure this is the correct API base URL
+  private baseUrl = 'http://localhost:4200/';  
 
   private httpOptions = {
     headers: new HttpHeaders({

@@ -41,10 +41,12 @@ import { SignupComponent } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/
         TodolistComponent,
         LoginComponent,
         SignupComponent
+
     ],
     providers: [
-        provideHttpClient(withFetch()), // Using fetch API
+        provideHttpClient(withFetch()),
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
+    
 })
 export class AppModule { }

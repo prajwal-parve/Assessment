@@ -1,6 +1,19 @@
-import { CanActivateFn } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
-export const LoginGuard: CanActivateFn = (route, state) => {
-  const user = localStorage.getItem('User');
-  return !user; 
-};
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginGuard implements CanActivate {
+  constructor(private userService: UserService, private router: Router) {}
+
+  canActivate(): boolean {
+    const user = this.userService.getUserDetails(); 
+    if (user) {
+      this.router.navigate(['/todo']); 
+      return false;
+    }
+    return true; 
+  }
+}

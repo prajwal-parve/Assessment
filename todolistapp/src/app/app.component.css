@@ -4,12 +4,11 @@ body {
     position: relative; 
 }
 
-
 .navbar {
     position: fixed;
     width: 100%; 
     z-index: 1000; 
-    background-color: rgba(0, 0, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.9); 
 }
 
 .navbar-brand {
@@ -28,9 +27,8 @@ body {
     margin-right: 20px; 
 }
 
-
 .btn-light {
-    background-color: #f8f9fa; 
+    background-color: #ffffff; 
     color: #343a40; 
     border: 1px solid #ced4da; 
     border-radius: 4px; 
@@ -48,7 +46,6 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
 }
 
-
 .todo-list-wrapper {
     padding-top: 60px; 
     position: relative; 
@@ -59,14 +56,14 @@ body {
     background-attachment: fixed; 
     background-repeat: no-repeat; 
     background-position: center; 
-    height: 280px; 
+    height: 400px; 
     position: relative; 
 }
 
 .top-bg::after {
     content: '';
     background: linear-gradient(to right, #b068b3, #4568DC); 
-    height: 280px; 
+    height: 400px; 
     position: absolute; 
     top: 0; 
     left: 0; 
@@ -74,57 +71,83 @@ body {
     opacity: 0.8; 
 }
 
-
 .main-card {
-    margin-top: -60px; 
+    margin-top: -300px; 
     margin-bottom: 80px; 
     background-color: rgba(0, 0, 0, 0.9); 
     border-radius: 8px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    padding: 30px;
 }
 
 .header {
-    padding: 20px; 
+    padding: 10px; 
 }
 
 .header h1 {
     letter-spacing: 2px; 
     margin: 0 0 20px 0; 
-    color: black; 
+    color: white; 
 }
 
+/* Login Form */
+.login-form {
+    background-color: rgba(16, 15, 15, 0.9); 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(223, 222, 222, 0.2); 
+}
 
-.date-time {
-    background: #ffffff; 
-    font-size: 10px; 
-    font-weight: 500; 
-    padding: 8px 12px; 
-    border-radius: 4px; 
+.login-form label {
+    color: #333; 
+}
+
+.login-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.login-form button {
+    margin-top: 10px;
+    background-color: #007bff; 
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.login-form button:hover {
+    background-color: #0056b3; 
 }
 
 .task-card {
-    height: 150px; 
+    height: 550px; 
 }
 
 .item-left {
     text-align: center;
     padding: 2px 12px 8px 12px; 
     float: left; 
-    color: #ffffff; 
+    color: yellow; 
 }
 
 .item-right {
     font-size: 0.9rem; 
 }
 
-.search-input {
-    border: 1px solid #333; 
-}
-
 input {
-    height: 60px; 
-    border: 0; 
-    padding: 0; 
+    height: auto; 
+    border: 1px solid #ced4da; 
+    padding: 10px; 
+    border-radius: 4px; 
+    width: 100%; 
+    box-sizing: border-box;
 }
 
 input:focus {
@@ -133,7 +156,11 @@ input:focus {
 }
 
 select {
-    height: 44px; 
+    height: auto; 
+    border: 1px solid #ced4da; 
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%; 
 }
 
 select:focus {
@@ -141,13 +168,23 @@ select:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
 }
 
-
 .ngx-pagination {
     margin: 0 !important; 
     padding: 0 !important; 
     text-align: center; 
 }
 
+.text-white {
+    color: white; 
+}
+
+.text-primary {
+    color: #007bff; 
+}
+
+.text-primary:hover {
+    text-decoration: underline; 
+}
 
 @media (max-width: 1200px) {
     .navbar-collapse {
@@ -160,5 +197,13 @@ select:focus {
 
     .header h1 {
         font-size: 1.5rem; 
+    }
+
+    .login-form {
+        padding: 15px;
+    }
+
+    .main-card {
+        margin-top: -200px; 
     }
 }

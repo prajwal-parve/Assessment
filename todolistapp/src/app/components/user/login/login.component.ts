@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service'; 
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { User } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/shared/user'; 
+import { User } from 'src/app/shared/user'; 
 
 @Component({
   selector: 'app-login',
@@ -20,14 +20,16 @@ export class LoginComponent implements OnInit {
     private api: UserService,
     private toastr: ToastrService,
     private router: Router
-  ) { 
+  ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('LoginComponent initialized');
+  }
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -36,19 +38,24 @@ export class LoginComponent implements OnInit {
       this.api.LoginByEmail(email, password).subscribe(
         (user: User | null) => {
           if (user) {
-            localStorage.setItem("User", JSON.stringify(user));
+            
+            if (typeof window !== 'undefined' && window.localStorage) {
+              localStorage.setItem("User", JSON.stringify(user));
+            }
             this.toastr.success('Login Successful');
-            this.loginForm.reset();
-            this.router.navigateByUrl('/todo');
+            this.router.navigateByUrl('/todo'); 
+            this.loginForm.reset(); 
           } else {
             this.toastr.warning("Invalid email or password");
           }
         },
         (err: any) => {
-          this.toastr.error('An error occurred while logging in. Please try again.');
+          this.toastr.error(err.error?.message || 'An error occurred while logging in. Please try again.');
           console.error(err);
         }
       );
+    } else {
+      this.toastr.warning('Please fill in all required fields.');
     }
   }
 }

@@ -1,22 +1,24 @@
+// src/app/signup/signup.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { UserService } from 'src/app/services/user.service';
-import { CommonModule } from '@angular/common'; 
-import { ReactiveFormsModule } from '@angular/forms'; 
+import { UserService } from 'src/app/services/user.service'; 
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], 
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'] 
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
 
-  constructor(private api: UserService, private toastr: ToastrService, private router: Router) { 
+  constructor(private api: UserService, private toastr: ToastrService, private router: Router) {
     this.signupForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
@@ -36,7 +38,8 @@ export class SignupComponent implements OnInit {
           this.router.navigateByUrl('/login');
         },
         (err: any) => {
-          this.toastr.error(err.error?.message || 'Signup failed');
+          const errorMsg = err.error?.message || 'Signup failed. Please try again later.';
+          this.toastr.error(errorMsg);
         }
       );
     } else {
