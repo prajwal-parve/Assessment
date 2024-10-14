@@ -12,25 +12,28 @@ import { CommonModule } from '@angular/common';
 export class NetworkerrorComponent {
   
   errorMessage: string = '';
+  showError: boolean = false; // To control visibility of the error message
 
   constructor(private http: HttpClient) {}
 
   handleNetworkError(error: any) {
     console.error('Network Error:', error);
     this.errorMessage = this.getUserFriendlyMessage(error);
+    this.showError = true; // Show error notification
   }
 
   getUserFriendlyMessage(error: any): string {
     if (error.status === 404) {
-        return 'The requested resource was not found.';
+      return 'The requested resource was not found.';
     } else if (error.status === 500) {
-        return 'There was a server error. Please try again later.';
+      return 'There was a server error. Please try again later.';
     } else {
-        return 'An unexpected error occurred. Please try again.';
+      return 'An unexpected error occurred. Please try again.';
     }
   }
 
   closeErrorNotification() {
+    this.showError = false; // Hide error notification
     this.errorMessage = ''; 
   }
 
@@ -38,7 +41,6 @@ export class NetworkerrorComponent {
     this.http.get('https://api.example.com/data').subscribe({
       next: data => {
         console.log('Data received:', data);
-        
       },
       error: error => {
         this.handleNetworkError(error);
@@ -48,7 +50,6 @@ export class NetworkerrorComponent {
       }
     });
   }
-  
 
   retryRequest() {
     console.log('Retrying network request...');

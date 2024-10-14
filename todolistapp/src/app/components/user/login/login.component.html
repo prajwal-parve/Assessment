@@ -6,7 +6,14 @@
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
                     <!-- Email Input -->
                     <div class="form-group mb-3">
-                        <input type="email" class="form-control" formControlName="email" placeholder="Enter your email"/>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            formControlName="email" 
+                            placeholder="Enter your email"
+                            [ngClass]="{'is-invalid': loginForm.controls.email.invalid && loginForm.controls.email.touched}" 
+                            aria-label="Email"
+                        />
                         <small class="form-text text-danger" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">
                             Please enter your email
                         </small>
@@ -16,7 +23,14 @@
                     </div>
                     <!-- Password Input -->
                     <div class="form-group mb-3">
-                        <input type="password" class="form-control" formControlName="password" placeholder="Enter your password"/>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            formControlName="password" 
+                            placeholder="Enter your password"
+                            [ngClass]="{'is-invalid': loginForm.controls.password.invalid && loginForm.controls.password.touched}" 
+                            aria-label="Password"
+                        />
                         <small class="form-text text-danger" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required">
                             Please enter your password
                         </small>

@@ -1,36 +1,51 @@
 .not-found-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; 
-    text-align: center;
-    background-color: #f9f9f9;
-    color: #333; 
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  text-align: center;
+  background-color: #f9f9f9; /* Adjusted for a subtle color */
+  color: #333; 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Added shadow */
+}
+
+h1 {
+  font-size: 2.5rem; 
+  margin-bottom: 10px; 
+}
+
+p {
+  font-size: 1.2rem; 
+  margin-bottom: 20px; 
+}
+
+.home-button {
+  padding: 10px 20px; 
+  font-size: 1rem; 
+  background-color: #007bff; 
+  color: #fff; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+}
+
+.home-button:hover {
+  background-color: #0056b3; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
   h1 {
-    font-size: 2.5rem; 
-    margin-bottom: 10px; 
+      font-size: 2rem; 
   }
   
   p {
-    font-size: 1.2rem; 
-    margin-bottom: 20px; 
+      font-size: 1rem; 
   }
   
   .home-button {
-    padding: 10px 20px; 
-    font-size: 1rem; 
-    background-color: #007bff; 
-    color: #fff; 
-    border: none; 
-    border-radius: 5px; 
-    cursor: pointer; 
-    transition: background-color 0.3s ease; 
+      width: 100%; /* Make button full-width on small screens */
   }
-  
-  .home-button:hover {
-    background-color: #0056b3; 
-  }
-  
+}

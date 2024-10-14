@@ -30,7 +30,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "C:/Users/HP/Desktop/Assessment/todolistapp/src/styles.css",
+              
               "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
             ],
             "scripts": [],
@@ -50,8 +50,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "maximumWarning": "3kB",
+                  "maximumError": "6kB"
                 }
               ],
               "outputHashing": "all"

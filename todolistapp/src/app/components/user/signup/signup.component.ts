@@ -1,5 +1,3 @@
-// src/app/signup/signup.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +19,7 @@ export class SignupComponent implements OnInit {
   constructor(private api: UserService, private toastr: ToastrService, private router: Router) {
     this.signupForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
-      mobile: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      mobile: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]), // Added maxLength
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
@@ -45,5 +43,15 @@ export class SignupComponent implements OnInit {
     } else {
       this.toastr.warning('Please fill in all required fields');
     }
+  }
+
+  // Method to check if a control is valid
+  isControlValid(controlName: string): boolean {
+    return this.signupForm.get(controlName)?.valid || false;
+  }
+
+  // Method to check if a control is touched
+  isControlTouched(controlName: string): boolean {
+    return this.signupForm.get(controlName)?.touched || false;
   }
 }

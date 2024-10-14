@@ -13,8 +13,12 @@
 .list-group-item {
     padding: 18px 20px 14px 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125) !important;
+    transition: background-color 0.3s; /* Smooth background color transition */
 }
 
+.list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Highlight on hover */
+}
 
 .list-group-item:last-child {
     border-bottom: 0 !important;
@@ -31,14 +35,39 @@
     display: inline-block;
 }
 
-
 .top-links li:last-child {
     position: absolute;
     right: 20px;
     top: 26px;
+    cursor: pointer; /* Change cursor to pointer for better UX */
+}
+
+.nav-tabs .nav-link {
+    border: none; /* Remove default borders for a cleaner look */
 }
 
 .nav-tabs .nav-link.active {
     font-weight: 900;
     color: #0d6efd !important;
+    border-bottom: 2px solid #0d6efd; /* Add a bottom border to indicate active tab */
+}
+
+/* Additional styling for better spacing and font size */
+.card {
+    margin-top: 20px; /* Add some spacing at the top */
+}
+
+.text-danger {
+    font-size: 0.9rem; /* Make error messages slightly smaller */
+}
+
+/* Add responsiveness */
+@media (max-width: 576px) {
+    .top-links {
+        flex-direction: column; /* Stack links on smaller screens */
+        align-items: flex-start; /* Align links to start */
+    }
+    .top-links li {
+        margin-bottom: 5px; /* Add spacing between links */
+    }
 }

@@ -3,10 +3,9 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    /*background: url('') no-repeat center center;*/
+    background: url('your-background-image.jpg') no-repeat center center; /* Uncomment and replace with your image URL */
     background-size: cover;
 }
-
 
 .card {
     background-color: #f8f9fa; 
@@ -18,12 +17,11 @@
     max-width: 400px; 
 }
 
-
 h2 {
     color: #343a40; 
     margin-bottom: 20px; 
+    font-weight: bold; /* Increased font weight for emphasis */
 }
-
 
 .form-group {
     margin-bottom: 1rem; 
@@ -36,24 +34,20 @@ h2 {
     transition: border-color 0.2s ease-in-out; 
 }
 
-
 .form-control:focus {
     border-color: #007bff; 
     outline: none; 
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
 
-
 .is-invalid {
     border-color: #dc3545; 
 }
-
 
 .form-text.text-danger {
     font-size: 0.875rem; 
     margin-top: 0.25rem; 
 }
-
 
 .btn-primary {
     background-color: #007bff; 
@@ -61,6 +55,8 @@ h2 {
     transition: background-color 0.3s, border-color 0.3s; 
     padding: 10px 20px; 
     border-radius: 5px; 
+    font-size: 16px; /* Increased font size for better visibility */
+    font-weight: bold; /* Increased font weight for emphasis */
 }
 
 .btn-primary:hover {
@@ -68,11 +64,9 @@ h2 {
     border-color: #0056b3; 
 }
 
-
 .text-center {
     margin-top: 20px; 
 }
-
 
 @media (max-width: 576px) {
     .card {

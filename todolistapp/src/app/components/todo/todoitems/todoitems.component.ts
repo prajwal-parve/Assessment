@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, input, OnInit, Output, output } from '@angular/core';
-import { Todo } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/shared/todo';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Todo } from 'src/app/shared/todo';
 import { CommonModule } from '@angular/common';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-todoitems',
@@ -9,31 +10,56 @@ import { CommonModule } from '@angular/common';
   templateUrl: './todoitems.component.html',
   styleUrls: ['./todoitems.component.css']
 })
-export class TodoitemsComponent implements OnInit{
+export class TodoitemsComponent implements OnInit {
 
-  @Input() todolist: Todo[] = [];
-  @Output() updateItem = new EventEmitter<Todo>();
-  @Output() deleteItem = new EventEmitter<number>();
-  @Output() editItem = new EventEmitter<Todo>();
+  @Input() todolist: Todo[] = []; 
+  @Output() updateItem = new EventEmitter<Todo>(); 
+  @Output() deleteItem = new EventEmitter<number>(); 
+  @Output() editItem = new EventEmitter<Todo>(); 
 
-  constructor(){}
+  tform: FormGroup; 
+  onSubmitValue: boolean = true; 
 
-
-  ngOnInit(): void {
-    
+  constructor(private fb: FormBuilder) {
+    this.tform = this.fb.group({
+      task: [''],
+      id: [null]
+    });
   }
 
-  update(todo:Todo){
-    this.updateItem.emit({userId:todo.userId, id:todo.id, task:todo.task, status:todo.status, completed: todo.completed});
+  ngOnInit(): void {}
+
+  onUpdate(todo: Todo) {
+    this.updateItem.emit({ ...todo }); 
   }
 
-  edit(todo: Todo){
+  onEdit(todo: Todo) {
     this.editItem.emit(todo);
+    this.tform.patchValue(todo); 
+    this.onSubmitValue = false; 
   }
 
-  delete(id:number){
-    console.log(id);
+  onDelete(id: number) {
+    console.log(`Deleting todo with id: ${id}`);
     this.deleteItem.emit(id);
   }
 
+  
+  onSubmit() {
+    if (this.tform.valid) {
+      const todoData = this.tform.value;
+      if (todoData.id) {
+        this.updateItem.emit(todoData);
+      } else {
+        this.editItem.emit(todoData); 
+      }
+      this.resetForm(); 
+    }
+  }
+
+  
+  resetForm() {
+    this.tform.reset();
+    this.onSubmitValue = true; 
+  }
 }

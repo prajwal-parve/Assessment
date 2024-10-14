@@ -9,10 +9,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Add additional navigation links here if needed -->
       </ul>
       <div class="d-flex">
         <button type="button" class="btn btn-light" *ngIf="user" (click)="logout()">Logout</button>
-        <!-- Add Login Link Here -->
         <a routerLink="/login" class="btn btn-light" *ngIf="!user">Login</a>
       </div>
     </div>
@@ -29,7 +29,8 @@
           <h1 class="text-start text-white fw-bolder">TO DO APP.</h1>
         </div>
 
-        <div *ngIf="!user">
+        <!-- Login Form -->
+        <div *ngIf="!user && !isSignup">
           <form (submit)="login()" class="login-form">
             <div class="mb-3">
               <label for="email" class="form-label text-white">Email</label>
@@ -41,11 +42,38 @@
             </div>
             <button type="submit" class="btn btn-primary w-100">Login</button>
             <div class="mt-2 text-center">
-              <p class="text-white">Don't have an account? <a routerLink="/signup" class="text-primary">Sign Up</a></p>
+              <p class="text-white">Don't have an account? <a (click)="toggleSignup()" class="text-primary">Sign Up</a></p>
             </div>
           </form>
         </div>
 
+        <!-- Signup Form -->
+        <div *ngIf="!user && isSignup">
+          <form (submit)="signup()" class="signup-form">
+            <div class="mb-3">
+              <label for="signupName" class="form-label text-white">Name</label>
+              <input type="text" id="signupName" [(ngModel)]="name" name="name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="signupEmail" class="form-label text-white">Email</label>
+              <input type="email" id="signupEmail" [(ngModel)]="signupEmail" name="signupEmail" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="signupPhone" class="form-label text-white">Phone</label>
+              <input type="text" id="signupPhone" [(ngModel)]="phone" name="signupPhone" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label for="signupPassword" class="form-label text-white">Password</label>
+              <input type="password" id="signupPassword" [(ngModel)]="signupPassword" name="signupPassword" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            <div class="mt-2 text-center">
+              <p class="text-white">Already have an account? <a (click)="toggleSignup()" class="text-primary">Login</a></p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Display Todo List if User is Logged In -->
         <div *ngIf="user">
           <router-outlet></router-outlet> 
         </div>

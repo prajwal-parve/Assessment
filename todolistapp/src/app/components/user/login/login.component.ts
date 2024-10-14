@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router
   ) {
+    // Initialize the form with controls and validators
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)])
@@ -38,12 +39,9 @@ export class LoginComponent implements OnInit {
       this.api.LoginByEmail(email, password).subscribe(
         (user: User | null) => {
           if (user) {
-            
-            if (typeof window !== 'undefined' && window.localStorage) {
-              localStorage.setItem("User", JSON.stringify(user));
-            }
+            this.storeUserInLocalStorage(user);
             this.toastr.success('Login Successful');
-            this.router.navigateByUrl('/todo'); 
+            this.router.navigateByUrl('/todo');
             this.loginForm.reset(); 
           } else {
             this.toastr.warning("Invalid email or password");
@@ -51,11 +49,17 @@ export class LoginComponent implements OnInit {
         },
         (err: any) => {
           this.toastr.error(err.error?.message || 'An error occurred while logging in. Please try again.');
-          console.error(err);
+          console.error('Error during login:', err);
         }
       );
     } else {
       this.toastr.warning('Please fill in all required fields.');
+    }
+  }
+
+  private storeUserInLocalStorage(user: User): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem("User", JSON.stringify(user));
     }
   }
 }

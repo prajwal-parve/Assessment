@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Todo } from 'src/app/shared/todo';
 
@@ -11,14 +11,16 @@ import { Todo } from 'src/app/shared/todo';
 })
 export class TodoformComponent implements OnInit {
   @ViewChild('task', { read: ElementRef }) el!: ElementRef<HTMLInputElement>;
-  @Output() todoItemCreated = new EventEmitter<{ userId: number; id: number; task: string; status: boolean }>();
-  @Output() todoItemEdited = new EventEmitter<{ userId: number; id: number; task: string; status: boolean }>();
-
+  @Output() todoItemCreated = new EventEmitter<Todo>();
+  @Output() todoItemEdited = new EventEmitter<Todo>();
+  @Input() userId!: number; // To receive user ID from the parent component
   onSubmitValue: boolean = true;
-  tform: { id: number; userId: number; task: string; status: boolean } = {
+
+  tform: Todo = {
     id: 0,
-    userId: 0,
+    userId: this.userId,
     task: '',
+    completed: false,
     status: false
   };
 
@@ -27,36 +29,45 @@ export class TodoformComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    
+    if (!this.tform.task.trim()) {
+      alert('Task cannot be empty'); // Simple validation feedback
+      return;
+    }
+
     this.el.nativeElement.focus();
 
-    const newTodo = {
-      userId: this.tform.userId,
+    const newTodo: Todo = {
+      userId: this.userId,
       id: this.tform.id,
       task: this.tform.task,
-      status: this.tform.status
+      completed: false,
+      status: false
     };
-    
-    this.todoItemCreated.emit(newTodo);
 
+    this.todoItemCreated.emit(newTodo);
     this.resetForm();
   }
 
   edit() {
-    
-    const editedTodo = {
+    if (!this.tform.task.trim()) {
+      alert('Task cannot be empty'); // Simple validation feedback
+      return;
+    }
+
+    const editedTodo: Todo = {
       userId: this.tform.userId,
       id: this.tform.id,
       task: this.tform.task,
+      completed: false,
       status: this.tform.status
     };
-    
-    this.todoItemEdited.emit(editedTodo);
 
+    this.todoItemEdited.emit(editedTodo);
     this.resetForm();
   }
 
   private resetForm() {
-    this.tform = { id: 0, userId: 0, task: '', status: false }; 
+    this.tform = { id: 0, userId: this.userId, task: '', completed: false, status: false }; 
+    this.el.nativeElement.focus(); // Focus back to the input after resetting
   }
 }
