@@ -20,8 +20,7 @@ export class TodoformComponent implements OnInit {
     id: 0,
     userId: this.userId,
     task: '',
-    completed: false,
-    status: false
+    isCompleted: false,
   };
 
   constructor() {}
@@ -40,8 +39,7 @@ export class TodoformComponent implements OnInit {
       userId: this.userId,
       id: this.tform.id,
       task: this.tform.task,
-      completed: false,
-      status: false
+      isCompleted: false,
     };
 
     this.todoItemCreated.emit(newTodo);
@@ -58,8 +56,7 @@ export class TodoformComponent implements OnInit {
       userId: this.tform.userId,
       id: this.tform.id,
       task: this.tform.task,
-      completed: false,
-      status: this.tform.status
+      isCompleted: false,
     };
 
     this.todoItemEdited.emit(editedTodo);
@@ -67,7 +64,7 @@ export class TodoformComponent implements OnInit {
   }
 
   private resetForm() {
-    this.tform = { id: 0, userId: this.userId, task: '', completed: false, status: false }; 
+    this.tform = { id: 0, userId: this.userId, task: '', isCompleted: false }; 
     this.el.nativeElement.focus(); // Focus back to the input after resetting
   }
 }

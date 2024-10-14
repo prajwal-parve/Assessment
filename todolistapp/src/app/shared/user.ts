@@ -1,7 +1,8 @@
 export interface User {
-    id: number;             // Unique identifier for the user
+    userId:number;
+    id?: number;             // Unique identifier for the user
     name: string;          // User's full name
-    email: string;         // User's email address
+    email?: string;         // User's email address
     phone?: string;        // Optional user's phone number
     password: string;     // Optional (should not be returned in API response)
     token?: string;        // Optional token for authentication

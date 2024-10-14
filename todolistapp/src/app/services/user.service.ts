@@ -10,25 +10,25 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root'
 })
 export class UserService {
-  
-  private apiUrl = environment.apiUrl; // Use environment variable for API URL
+
+  private apiUrl = environment.apiUrl; 
   private user: User | null = null;
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.loadUserFromLocalStorage(); // Load user data from local storage on service initialization
+    this.loadUserFromLocalStorage(); 
   }
 
   private loadUserFromLocalStorage(): void {
     if (isPlatformBrowser(this.platformId)) {
       const userData = localStorage.getItem('User');
-      this.user = userData ? JSON.parse(userData) : null; // Initialize user from local storage if available
+      this.user = userData ? JSON.parse(userData) : null; 
     }
   }
 
   SignupUser(value: { name: string; mobile: string; email: string; password: string; }): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/signup`, value).pipe(
       map(user => {
-        this.setUserDetails(user); // Store user data upon signup
+        this.setUserDetails(user); 
         return user;
       }),
       catchError(this.handleError)
@@ -39,8 +39,8 @@ export class UserService {
     return this.http.post<User>(`${this.apiUrl}/login`, { email, password }).pipe(
       map(user => {
         if (user) {
-          this.setAccessToken(user.token || ''); // Store access token
-          this.setUserDetails(user); // Store user details
+          this.setAccessToken(user.token || ''); 
+          this.setUserDetails(user); 
         }
         return user || null;
       }),
@@ -74,12 +74,19 @@ export class UserService {
     );
   }
 
+  // Change made: Ensuring return type is string | null for access token
   getAccessToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem('access_Token');
     }
     return null;
   }
+
+  // Change made: Ensure the user ID is treated correctly as a number when needed
+  getUserId(): number | null {
+    return this.user && this.user.id !== undefined ? this.user.id : null;
+}
+
 
   setAccessToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {

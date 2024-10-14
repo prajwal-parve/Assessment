@@ -35,23 +35,21 @@ describe('TodoformComponent', () => {
       userId: mockUserId,
       id: 0,
       task: 'New Todo',
-      status: false,
-      completed: false
+      isCompleted: false
     });
   });
 
   it('should emit todoItemEdited event on edit', () => {
     spyOn(component.todoItemEdited, 'emit');
 
-    component.tform = { id: 1, userId: mockUserId, task: 'Edited Todo', status: false, completed: false };
+    component.tform = { id: 1, userId: mockUserId, task: 'Edited Todo', isCompleted: false };
     component.edit();
 
     expect(component.todoItemEdited.emit).toHaveBeenCalledWith({
       userId: mockUserId,
       id: 1,
       task: 'Edited Todo',
-      status: false,
-      completed: false
+      isCompleted: false
     });
   });
 
@@ -74,15 +72,13 @@ describe('TodoformComponent', () => {
 
     expect(component.tform.task).toBe('');
     expect(component.tform.id).toBe(0);
-    expect(component.tform.status).toBe(false);
   });
 
   it('should reset form after edit', () => {
-    component.tform = { id: 1, userId: mockUserId, task: 'Edit Todo', status: false, completed: false };
+    component.tform = { id: 1, userId: mockUserId, task: 'Edit Todo', isCompleted: false };
     component.edit();
 
     expect(component.tform.task).toBe('');
     expect(component.tform.id).toBe(0);
-    expect(component.tform.status).toBe(false);
   });
 });

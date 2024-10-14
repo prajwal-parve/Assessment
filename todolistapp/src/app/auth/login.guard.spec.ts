@@ -30,7 +30,13 @@ describe('LoginGuard', () => {
   });
 
   it('should navigate to /todo and return false if user is logged in', () => {
-    userServiceMock.getUserDetails.and.returnValue({ userId: 1, name: 'Test User' }); // Simulating logged-in user
+    userServiceMock.getUserDetails.and.returnValue({ 
+      id: 1, // Ensure this is included
+      userId: 1, 
+      name: 'Test User', 
+      email: 'testuser@example.com', 
+      password: 'password123'
+    });
 
     const canActivate = guard.canActivate();
 

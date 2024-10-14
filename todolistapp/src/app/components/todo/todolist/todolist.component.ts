@@ -36,19 +36,19 @@ export class TodolistComponent implements OnInit {
   }
 
   getItem() {
-    const userId = this.userService.getAccessToken()?.id; 
+    // Change: Use getUserId method to get user ID as a number
+    const userId = this.userService.getUserId(); 
 
-    
-    if (userId === undefined) { 
+    // Change: Check if userId is null instead of undefined
+    if (userId === null) { 
       this.toastr.error('User not authenticated');
       this.router.navigate(['/login']);
       return;
     }
 
-    
     this.service.getTodoList().subscribe({
       next: (response) => {
-        
+        // Ensure userId is used correctly
         this.todo = response.filter(item => item.userId === userId);
         this.completeTask = this.todo.filter(item => item.isCompleted === true);
         this.pendingTask = this.todo.filter(item => item.isCompleted === false);
@@ -63,9 +63,9 @@ export class TodolistComponent implements OnInit {
     });
   }
 
-  
   todoItemAdded(todo: { id: number; task: string; }) {
-    const userId = this.userService.getAccessToken()?.id; 
+    const userId = this.userService.getUserId() ||0; 
+
     const newTodo: Todo = {
       userId: userId, 
       id: todo.id,
@@ -85,7 +85,6 @@ export class TodolistComponent implements OnInit {
     });
   }
 
-  
   onDeleteTodoItem(id: number) {
     if (confirm("Are you sure?")) {
       this.service.deleteTodoById(id).subscribe({
@@ -101,7 +100,6 @@ export class TodolistComponent implements OnInit {
     }
   }
 
-  
   onDeleteCompletedTask() {
     const completedTasks = this.todo.filter(item => item.isCompleted === true);
     if (completedTasks.length <= 0) {
@@ -122,7 +120,6 @@ export class TodolistComponent implements OnInit {
     }
   }
 
- 
   onUpdateTodoItem(todo: Todo) {
     this.service.updateTodoById(todo.id!, {
       userId: todo.userId,
@@ -141,18 +138,16 @@ export class TodolistComponent implements OnInit {
     });
   }
 
- 
   onEditItem(todo: Todo) {
-    
     if (this.fComp) { 
-      this.fComp.tform.task = todo.task; 
-      this.fComp.tform.id = todo.id; 
+      // Change: Access the task from the FormGroup correctly
+      this.fComp.tform.get('task')?.setValue(todo.task); // Correct way to access FormControl
+      this.fComp.tform.get('id')?.setValue(todo.id); // Correct way to access FormControl
       this.fComp.onSubmitValue = false; 
       this._element.nativeElement.querySelector('#taskInput').focus(); 
     }
   }
 
-  
   onEditTodoItem(todo: Todo) {
     this.service.editTodoById(todo.id!, {
       userId: todo.userId,

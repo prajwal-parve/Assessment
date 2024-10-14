@@ -27,35 +27,32 @@ describe('TodoitemsComponent', () => {
 
   it('should emit update event when update is called', () => {
     const todo: Todo = {
-      userId: '1',
+      userId: 1,
       id: 1,
       task: 'Test Task',
-      completed: false,
-      status: false
+      isCompleted: false,
     };
     spyOn(component.updateItem, 'emit');
 
     component.onUpdate(todo);
     expect(component.updateItem.emit).toHaveBeenCalledWith({
-      userId: '1',
+      userId: 1,
       id: 1,
       task: 'Test Task',
-      completed: false,
-      status: false
+      isCompleted: false,
     });
   });
 
   it('should emit edit event when edit is called', () => {
     const todo: Todo = {
-      userId: '1',
+      userId: 1,
       id: 1,
       task: 'Test Task',
-      completed: false,
-      status: false
+      isCompleted: false,
     };
     spyOn(component.editItem, 'emit');
 
-    component.edit(todo);
+    component.onEdit(todo);
     expect(component.editItem.emit).toHaveBeenCalledWith(todo);
   });
 
@@ -69,8 +66,8 @@ describe('TodoitemsComponent', () => {
 
   it('should display the correct number of todo items', () => {
     const testTodos: Todo[] = [
-      { userId: '1', id: 1, task: 'Test Task 1', completed: false, status: false },
-      { userId: '1', id: 2, task: 'Test Task 2', completed: true, status: true },
+      { userId: 1, id: 1, task: 'Test Task 1', isCompleted: false },
+      { userId: 1, id: 2, task: 'Test Task 2', isCompleted: true },
     ];
 
     component.todolist = testTodos;

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { Todo } from 'src/app/shared/todo'; 
 
 describe('TodolistComponent', () => {
   let component: TodolistComponent;
@@ -21,7 +22,7 @@ describe('TodolistComponent', () => {
     mockUserService = jasmine.createSpyObj('UserService', ['getAccessToken']);
 
     await TestBed.configureTestingModule({
-      imports: [TodolistComponent],
+      declarations: [TodolistComponent], // Make sure to use declarations, not imports
       providers: [
         { provide: TodoService, useValue: mockTodoService },
         { provide: ToastrService, useValue: mockToastrService },
@@ -40,8 +41,11 @@ describe('TodolistComponent', () => {
   });
 
   it('should fetch todo items on init', () => {
-    mockUserService.getAccessToken.and.returnValue({ id: 1 });
-    const mockTodoList = [{ id: 1, task: 'Test Task', completed: false, userId: 1 }];
+    mockUserService.getAccessToken.and.returnValue('mockToken');
+
+    const mockTodoList: Todo[] = [
+      { id: 1, task: 'Test Task', isCompleted: false, userId: 1 }
+    ];
     mockTodoService.getTodoList.and.returnValue(of(mockTodoList));
 
     component.ngOnInit();
@@ -51,9 +55,10 @@ describe('TodolistComponent', () => {
   });
 
   it('should handle error when fetching todo items', () => {
-    mockUserService.getAccessToken.and.returnValue({ id: 1 });
+    mockUserService.getAccessToken.and.returnValue('mockToken');
+
     const mockError = { status: 404, statusText: 'Not Found' };
-    mockTodoService.getTodoList.and.returnValue(throwError(mockError));
+    mockTodoService.getTodoList.and.returnValue(throwError(() => mockError));
 
     component.ngOnInit();
 
@@ -61,21 +66,27 @@ describe('TodolistComponent', () => {
     expect(mockToastrService.error).toHaveBeenCalled();
   });
 
+  // Inside todolist.component.spec.ts
   it('should add a todo item', () => {
-    const mockTodo = { id: 1, task: 'New Task', completed: false, userId: 1 };
-    mockUserService.getAccessToken.and.returnValue({ id: 1 });
+  
+    const mockTodo: Todo = { id: 1, task: 'New Task', isCompleted: false, userId: 1 }; 
+  
+    mockUserService.getAccessToken.and.returnValue('mockToken');
     mockTodoService.addTodoItem.and.returnValue(of(mockTodo));
 
-    component.todoItemAdded({ id: 1, task: 'New Task' });
+    component.todoItemAdded({ id: mockTodo.id!, task: mockTodo.task });
 
     expect(mockTodoService.addTodoItem).toHaveBeenCalledWith(jasmine.objectContaining({ task: 'New Task' }));
     expect(mockToastrService.success).toHaveBeenCalled();
   });
 
+  
+
   it('should handle error when adding a todo item', () => {
-    mockUserService.getAccessToken.and.returnValue({ id: 1 });
+    mockUserService.getAccessToken.and.returnValue('mockToken');
+
     const mockError = { status: 500, statusText: 'Server Error' };
-    mockTodoService.addTodoItem.and.returnValue(throwError(mockError));
+    mockTodoService.addTodoItem.and.returnValue(throwError(() => mockError));
 
     component.todoItemAdded({ id: 1, task: 'New Task' });
 
@@ -84,7 +95,7 @@ describe('TodolistComponent', () => {
 
   it('should delete a todo item', () => {
     const todoId = 1;
-    mockTodoService.deleteTodoById.and.returnValue(of(null));
+    mockTodoService.deleteTodoById.and.returnValue(of(void 0)); // Return void observable
 
     component.onDeleteTodoItem(todoId);
 
@@ -95,7 +106,7 @@ describe('TodolistComponent', () => {
   it('should handle error when deleting a todo item', () => {
     const todoId = 1;
     const mockError = { status: 500, statusText: 'Server Error' };
-    mockTodoService.deleteTodoById.and.returnValue(throwError(mockError));
+    mockTodoService.deleteTodoById.and.returnValue(throwError(() => mockError)); // Use new throwError syntax
 
     component.onDeleteTodoItem(todoId);
 
