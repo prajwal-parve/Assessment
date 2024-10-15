@@ -1,46 +1,61 @@
-// src/app/auth.service.ts
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
+export interface User {
+  userId:number;
+  id?: number;          
+  name: string;         
+  email?: string;       
+  phone?: string;       
+  password: string;     
+  token?: string;        
+  profilePictureUrl?: string; 
+  role?: string;         
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://loccalhost:4200'; 
+  private apiUrl = 'http://localhost:3000'; 
 
   constructor(private http: HttpClient) {}
 
-  // Method to sign up a new user
-  signup(userData: any): Observable<any> {
-    const url = `${this.apiUrl}/signup`; 
+  signup(userData: User): Observable<User> {
+    const url = `${this.apiUrl}/users`; 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(url, userData, { headers });
+    return this.http.post<User>(url, userData, { headers }).pipe(
+      catchError(this.handleError) 
+    );
   }
 
-  // Method to log in an existing user
-  login(credentials: any): Observable<any> {
+  login(credentials: { email: string; password: string }): Observable<User | null> {
     const url = `${this.apiUrl}/login`; 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(url, credentials, { headers });
+    return this.http.post<User | null>(url, credentials, { headers }).pipe(
+      catchError(this.handleError) 
+    );
   }
 
-  // Method to log out the user (optional)
   logout(): void {
-    // Implement logout logic, like removing tokens from localStorage
     localStorage.removeItem('token');
+    localStorage.removeItem('user'); 
   }
 
-  // Check if the user is logged in
   isLoggedIn(): boolean {
-    // Check if token exists or some other logic
     return !!localStorage.getItem('token');
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred', error);
+    throw error; 
   }
 }

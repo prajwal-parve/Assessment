@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service'; 
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { User } from 'src/app/shared/user';
 
 @Component({
   selector: 'app-signup',
@@ -29,21 +30,22 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      this.api.SignupUser(this.signupForm.value).subscribe(
-        (res: any) => {
+      this.api.SignupUser(this.signupForm.value).subscribe({
+        next: (res: User) => {
           this.toastr.success('Signed up Successfully');
           this.signupForm.reset();
           this.router.navigateByUrl('/login');
         },
-        (err: any) => {
+        error: (err: any) => {
           const errorMsg = err.error?.message || 'Signup failed. Please try again later.';
           this.toastr.error(errorMsg);
         }
-      );
+      });
     } else {
       this.toastr.warning('Please fill in all required fields');
     }
   }
+  
 
   // Method to check if a control is valid
   isControlValid(controlName: string): boolean {

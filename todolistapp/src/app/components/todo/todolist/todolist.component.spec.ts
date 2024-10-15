@@ -22,7 +22,7 @@ describe('TodolistComponent', () => {
     mockUserService = jasmine.createSpyObj('UserService', ['getAccessToken']);
 
     await TestBed.configureTestingModule({
-      declarations: [TodolistComponent], // Make sure to use declarations, not imports
+      imports: [TodolistComponent], 
       providers: [
         { provide: TodoService, useValue: mockTodoService },
         { provide: ToastrService, useValue: mockToastrService },

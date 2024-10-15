@@ -1,8 +1,7 @@
 {
-    "token": "A",
-    "user": {
-        "id": 1,
-        "name": "Prajwal",
-        "email": "abc@gmail.com"
-    }
-}
+    "users": [
+      { "id": 1, "name": "Prajwal", "email": "abc@g.com", "password": "123456" },
+      { "id": 2, "name": "Jane Doe", "email": "jane@example.com", "password": "654321" }
+    ]
+  }
+  

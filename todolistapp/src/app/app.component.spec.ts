@@ -1,10 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from 'C:/Users/HP/Desktop/Assessment/todolistapp/src/app/app.component';
+import { AppComponent } from './app.component'; // Adjusted import path
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { UserService } from './services/user.service'; // Adjust path as necessary
+import { ToastrService } from 'ngx-toastr';
+import { provideHttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [HttpClientModule], // Add HttpClientModule to the imports
+      declarations: [AppComponent],
+      providers: [
+        provideHttpClient(),
+        { provide: UserService, useValue: jasmine.createSpyObj('UserService', ['someMethod']) }, // Adjust to your methods
+        { provide: ToastrService, useValue: jasmine.createSpyObj('ToastrService', ['success', 'error']) },
+        { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigateByUrl']) },
+      ],
     }).compileComponents();
   });
 

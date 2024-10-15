@@ -36,17 +36,20 @@ export class UserService {
   }
 
   LoginByEmail(email: string, password: string): Observable<User | null> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { email, password }).pipe(
-      map(user => {
+    return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
+      map(users => {
+        // Find the user with matching email and password
+        const user = users.find(u => u.email === email && u.password === password);
         if (user) {
-          this.setAccessToken(user.token || ''); 
-          this.setUserDetails(user); 
+          this.setAccessToken(user.token || ''); // Set token if available
+          this.setUserDetails(user); // Save user details
         }
-        return user || null;
+        return user || null; // Return the found user or null
       }),
       catchError(this.handleError)
     );
   }
+  
 
   setUserDetails(userData: User): void {
     this.user = userData;

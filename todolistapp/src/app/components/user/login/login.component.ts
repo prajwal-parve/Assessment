@@ -14,6 +14,8 @@ import { User } from 'src/app/shared/user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  email: string = '';
+  password: string = '';
   loginForm: FormGroup;
 
   constructor(
@@ -35,9 +37,9 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-
-      this.api.LoginByEmail(email, password).subscribe(
-        (user: User | null) => {
+  
+      this.api.LoginByEmail(email, password).subscribe({
+        next: (user: User | null) => {
           if (user) {
             this.storeUserInLocalStorage(user);
             this.toastr.success('Login Successful');
@@ -47,15 +49,16 @@ export class LoginComponent implements OnInit {
             this.toastr.warning("Invalid email or password");
           }
         },
-        (err: any) => {
+        error: (err: any) => {
           this.toastr.error(err.error?.message || 'An error occurred while logging in. Please try again.');
           console.error('Error during login:', err);
         }
-      );
+      });
     } else {
       this.toastr.warning('Please fill in all required fields.');
     }
   }
+  
 
   private storeUserInLocalStorage(user: User): void {
     if (typeof window !== 'undefined' && window.localStorage) {
